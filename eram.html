@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1894.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Create New User&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;h1&gt;Create New User&lt;/h1&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;form id="userForm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;label for="username"&gt;Username:&lt;/label&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="text" id="username" name="username"&gt;&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="submit" value="Submit"&gt;</p>
+<p class="p1">&lt;/form&gt;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;h2&gt;List of Users:&lt;/h2&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;table id="userTable"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;th&gt;Name&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;th&gt;QR Code&lt;/th&gt;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;th&gt;Access Count&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/tr&gt;</p>
+<p class="p1">&lt;/table&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let accessCounts = {}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("userForm").addEventListener("submit", function(event){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>event.preventDefault()</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let username = document.getElementById("username").value</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let userTable = document.getElementById("userTable")</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let newRow = userTable.insertRow(-1)</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let nameCell = newRow.insertCell(0)</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let qrCodeCell = newRow.insertCell(1)</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let accessCountCell = newRow.insertCell(2)</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>nameCell.innerHTML = `&lt;a href="/${username}" target="_blank"&gt;${username}&lt;/a&gt;`</p>
+<p class="p2"><span class="Apple-converted-space">      </span></p>
+<p class="p1"><span class="Apple-converted-space">      </span>accessCounts[username] = 0</p>
+<p class="p1"><span class="Apple-converted-space">      </span>accessCountCell.innerHTML = accessCounts[username]</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>let qrCodeElement = document.createElement('div')</p>
+<p class="p1"><span class="Apple-converted-space">      </span>qrCodeElement.id = `qrcode-${username}`</p>
+<p class="p2"><span class="Apple-converted-space">      </span></p>
+<p class="p1"><span class="Apple-converted-space">      </span>qrCodeCell.appendChild(qrCodeElement)</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>new QRCode(qrCodeElement, {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text: `https://bing.com/${username}`,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>width: 64,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>height: 64,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>correctLevel : QRCode.CorrectLevel.H</p>
+<p class="p1"><span class="Apple-converted-space">      </span>})</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("username").value = ""</p>
+<p class="p1"><span class="Apple-converted-space">  </span>})</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>window.addEventListener('blur', function() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (document.activeElement.href) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const usernameMatch = document.activeElement.href.match(/\/([^\/]+)$/)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (usernameMatch) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const username = usernameMatch[1]</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (accessCounts.hasOwnProperty(username)) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>accessCounts[username] += 1</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const rowToUpdateIndex =</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Array.from(document.querySelectorAll('#userTable tr'))</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>.findIndex(row =&gt; row.cells[0].textContent === username)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (rowToUpdateIndex !== -1) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>document.querySelector(`#userTable tr:nth-child(${rowToUpdateIndex + 1}) td:nth-child(3)`).textContent =</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>accessCounts[username]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1">})</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
